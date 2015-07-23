@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>TODO List</title>
+    <style>
+        a {text-decoration: none; color: black;}
+    </style>
+</head>
+<body>
+    <h1>Liste des tâches à faire:</h1>
+
+    <!-- boucle sur les taches (cookies) -->
+    <ul>
+        <% todolist.forEach(function(todo, index) { %>
+            <li><a href="/todo/supprimer/<%= index %>">✘</a>  <%= todo %></li>
+        <% }); %>
+    </ul>
+
+    <form action="todo/ajouter" method="POST" >
+        <p>
+            Ajouter une tâche à faire:  <input type="text" name="tache" />
+            <input type="submit" name="ajouter" value="Ajouter"/>
+        </p>
+    </form>
+</body>
+</html>

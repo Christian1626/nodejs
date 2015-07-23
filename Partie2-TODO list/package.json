@@ -1,0 +1,11 @@
+{
+  "name": "todo-list",
+  "version": "0.0.1",
+  "dependencies": {
+    "express":"~4.3.1",
+    "ejs":"2.3.3",
+    "cookie-session":"~1.2.0"
+  },
+  "author":"LEROY Christian",
+  "description":"todo list"
+}

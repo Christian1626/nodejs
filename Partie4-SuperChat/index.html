@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SuperChat</title>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <style>
+        strong {
+            background-color: black;
+            color:white;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="/socket.io/socket.io.js"></script>
+    <script> var socket = io.connect('http://localhost:8080'); </script>
+    <script>
+        var current_user = prompt('Quel est votre pseudo ?');
+        socket.emit('new_user',current_user);
+    </script>
+
+    <h1>SuperChat</h1>
+
+    <form action='/' method='POST' id='form_chat'>
+        <p>
+            Message :
+            <input type='text' name='comment' class="comment" />
+            <Input type='submit' id='Send' name='Send' value='Send'/>
+        </p>
+    </form>
+
+
+    <div id="zone_chat">
+
+    </div>
+
+    <script>
+        $(function(){
+            socket.on('new_comment',function(user,comment){
+                insertComment(user,comment);
+            });
+
+            socket.on('new_user',function(user){
+                newUser(user);
+            });
+
+            socket.on('user_disconnect',function(user){
+                userDisconnect(user);
+            });
+
+            $('#form_chat').submit(function () {
+
+                var comment = $('.comment').val();
+                socket.emit('comment', comment);
+                $('.comment').val('').focus();
+                insertComment(current_user,comment);
+                return false;
+            });
+
+            function insertComment(user, message) {
+                $('#zone_chat').prepend('<p><strong>' + user +
+                    '</strong> ' + message + '</p>');
+            }
+
+            function newUser(user) {
+                $('#zone_chat').prepend('<p>' + user +
+                        ' vient de rejoindre le chat. </p>');
+            }
+
+            function userDisconnect(user) {
+                $('#zone_chat').prepend('<p>' + user +
+                        ' vient de quitter le chat. </p>');
+            }
+        });
+
+
+    </script>
+
+
+
+</body>
+</html>

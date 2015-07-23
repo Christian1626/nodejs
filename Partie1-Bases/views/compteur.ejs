@@ -1,0 +1,10 @@
+<h1>Compteur jusqu'a <%= nb %></h1>
+
+<p><%
+for(var i = 1 ; i <= nb ; i++) { %>
+<%= i %>...
+<% } %></p>
+
+
+<p>Tant que j'y suis, je prends un nom au hasard qu'on m'a envoyé : <%= noms[Math.floor(Math.random() * (noms.length + 1))] %>
+</p>
